@@ -23,10 +23,14 @@ function queryUserByUsername($username)
 
 function printAnime($data)
 {
-    // Mengambil data rating manga
-    $mean = ($data['node']['mean'] ? $data['node']['mean'] : '0');
+    // Mengambil data rating anime
+    if (isset($data['node']['mean'])) {
+        $mean = ($data['node']['mean'] ? $data['node']['mean'] : '0');
+    } else {
+        $mean = 0;
+    }
 
-    // Mengambil data type manga
+    // Mengambil data type anime
     if ($data['node']['media_type'] == "unknown") {
         $media_type = "? ? ?";
     } else if ($data['node']['media_type'] == "tv") {
@@ -35,7 +39,7 @@ function printAnime($data)
         $media_type = ucwords($data['node']['media_type']);
     }
 
-    // Mengambil data poster manga
+    // Mengambil data poster anime
     $main_picture = ($data['node']['main_picture']['medium'] ? $data['node']['main_picture']['medium'] : '/assets/img/img-blank.jpg');
 
     return "<div class='col mb-4'>
@@ -59,7 +63,11 @@ function printAnime($data)
 function printManga($data)
 {
     // Mengambil data rating manga
-    $mean = ($data['node']['mean'] ? $data['node']['mean'] : '0');
+    if (isset($data['node']['mean'])) {
+        $mean = ($data['node']['mean'] ? $data['node']['mean'] : '0');
+    } else {
+        $mean = 0;
+    }
 
     // Mengambil data type manga
     if ($data['node']['media_type'] == "unknown") {
