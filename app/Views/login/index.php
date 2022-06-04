@@ -19,7 +19,6 @@
                                 </div>
                                 <form class="user" action="/login/cek" method="post">
                                     <?= csrf_field(); ?>
-                                    <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" name="veriv2" required value="<?= hash('sha256', date('s') + date('i')); ?>">
                                     <div class="form-group">
                                         <input type="teks" class="form-control form-control-user rounded-pill" name="username" autocomplete="off" required placeholder="Masukan username">

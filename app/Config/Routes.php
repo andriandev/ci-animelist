@@ -65,9 +65,9 @@ $routes->put('/admin/setting/save', 'Admin::save_setting');
 
 // Sistem login
 $routes->get('/login', 'Login::login');
-$routes->put('/login/cek', 'Login::logincek');
+$routes->post('/login/cek', 'Login::logincek');
 $routes->get('/register', 'Login::register');
-$routes->put('/register/cek', 'Login::registercek');
+$routes->post('/register/cek', 'Login::registercek');
 $routes->get('/logout', 'Login::logout');
 
 // Sistem search

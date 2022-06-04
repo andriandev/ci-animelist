@@ -10,7 +10,7 @@ class Login extends BaseController
     public function __construct()
     {
         // Inisialisasi model
-        $this->logModel = new \App\Models\Login_Model;
+        $this->logModel = new \App\Models\Login_Model();
     }
 
     public function login()
@@ -106,7 +106,8 @@ class Login extends BaseController
     {
         // Data yang dikirim ke view
         $data = [
-            'title' => 'Form Register'
+            'title' => 'Form Register',
+            'validation' => \Config\Services::validation()
         ];
 
         return view('login/register', $data);
@@ -115,13 +116,54 @@ class Login extends BaseController
     public function registercek()
     {
         // Menangkap semua inputan
-        $username = strtolower($this->request->getVar('username'));
+        $username = strtolower(htmlspecialchars($this->request->getVar('username')));
         $password = $this->request->getVar('password');
         $password2 = $this->request->getVar('password2');
-        $name = $this->request->getVar('name');
-        $veriv = $this->request->getVar('veriv');
+        $name = htmlspecialchars($this->request->getVar('name'));
+        $veriv = htmlspecialchars($this->request->getVar('veriv'));
         $veriv = hash('sha256', $veriv);
-        $veriv2 = $this->request->getVar('veriv2');
+        $veriv2 = htmlspecialchars($this->request->getVar('veriv2'));
+
+        if (!$this->validate([
+            'username' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'username harus di isi'
+                ]
+            ],
+            'password' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'password harus di isi'
+                ]
+            ],
+            'password2' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'konfirmasi password harus di isi'
+                ]
+            ],
+            'name' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'name harus di isi'
+                ]
+            ],
+            'veriv' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Penjumlahan harus di isi'
+                ]
+            ],
+            'veriv2' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Invalid token'
+                ]
+            ],
+        ])) {
+            return redirect()->back()->withInput();
+        }
 
         // Cek apakah veriv benar atau tidak
         if ($veriv != $veriv2) {
@@ -166,11 +208,11 @@ class Login extends BaseController
         $aktivasi = $configModel->getSet('aktivasi_user');
 
         // Security
-        $username = htmlspecialchars($username);
         $password = password_hash($password, PASSWORD_DEFAULT);
-        $name = htmlspecialchars($name);
-        $role = htmlspecialchars(strtolower('member'));
+        $role = 'member';
         $is_active = htmlspecialchars($aktivasi['value']);
+
+        //dd($username, $password, $name, $role, $is_active);
 
         // Perintah save ke DB
         $this->logModel->save([

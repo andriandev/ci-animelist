@@ -1,7 +1,7 @@
 <footer class="footer mt-auto footer-white">
     <div class="container-fluid">
         <div class="row text-center">
-            <div class="col-md-12 small">Copyright &#xA9; 2020 My Adikanime</div>
+            <div class="col-md-12 small">Copyright &#xA9;2020-<?= date('Y'); ?> Andriandev</div>
         </div>
     </div>
 </footer>

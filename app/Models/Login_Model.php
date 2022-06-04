@@ -12,7 +12,7 @@ class Login_Model extends Model
     protected $insertID = 0;
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
-    protected $allowedFields = [''];
+    protected $allowedFields = ['username', 'password', 'name', 'role', 'is_active'];
     protected $useTimestamps = true;
     protected $dateFormat = 'datetime';
     protected $createdField = 'created_at';

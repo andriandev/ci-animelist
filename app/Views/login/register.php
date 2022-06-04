@@ -19,22 +19,25 @@
                                 </div>
                                 <form class="user" action="/register/cek" method="post">
                                     <?= csrf_field(); ?>
-                                    <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" name="veriv2" required value="<?= hash('sha256', date('s') + date('i')); ?>">
                                     <div class="form-group">
-                                        <input type="teks" class="form-control form-control-user rounded-pill" name="username" required autocomplete="off" placeholder="Masukan username">
+                                        <input type="teks" class="form-control form-control-user rounded-pill <?= ($validation->hasError('username')) ? 'is-invalid' : ''; ?>" name="username" required autocomplete="off" placeholder="Masukan username">
                                     </div>
                                     <div class="form-group">
-                                        <input type="teks" class="form-control form-control-user rounded-pill" name="name" required autocomplete="off" placeholder="Masukan public name">
+                                        <input type="teks" class="form-control form-control-user rounded-pill <?= ($validation->hasError('name')) ? 'is-invalid' : ''; ?>" name="name" required autocomplete="off" placeholder="Masukan public name">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user rounded-pill" name="password" required placeholder="Masukan password">
+                                        <input type="password" class="form-control form-control-user rounded-pill <?= ($validation->hasError('password')) ? 'is-invalid' : ''; ?>" name="password" required placeholder="Masukan password">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user rounded-pill" name="password2" required placeholder="Masukan password kembali">
+                                        <input type="password" class="form-control form-control-user rounded-pill <?= ($validation->hasError('password2')) ? 'is-invalid' : ''; ?>" name="password2" required placeholder="Masukan password kembali">
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" class="form-control form-control-user rounded-pill" name="veriv" required placeholder="Hasil dari <?= date('s'); ?> + <?= date('i'); ?>">
+                                        <input type="number" class="form-control form-control-user rounded-pill <?= ($validation->hasError('veriv') || $validation->hasError('veriv2')) ? 'is-invalid' : ''; ?>" name="veriv" required placeholder="Hasil dari <?= date('s'); ?> + <?= date('i'); ?>">
+                                        <div class="invalid-feedback text-center">
+                                            <?= $validation->getError('veriv'); ?>
+                                            <?= $validation->getError('veriv2'); ?>
+                                        </div>
                                     </div>
                                     <?php if (session()->getFlashdata('pesan')) : ?>
                                         <?= session()->getFlashdata('pesan'); ?>
