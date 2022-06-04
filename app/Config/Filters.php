@@ -23,6 +23,9 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'is_admin' => \App\Filters\Is_admin::class,
+        'is_login' => \App\Filters\Is_login::class,
+        'is_ajax' => \App\Filters\Is_ajax::class,
     ];
 
     /**
@@ -68,5 +71,9 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $filters = [];
+    public $filters = [
+        'is_admin' => ['before' => ['admin', 'admin/*']],
+        //'is_ajax' => ['before' => ['ajax', 'ajax/*']],
+        'is_login' => ['before' => ['login', 'login/*', 'register', 'register/*']]
+    ];
 }

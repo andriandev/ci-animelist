@@ -35,7 +35,56 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+// Sistem home
 $routes->get('/', 'Home::index');
+
+// Sistem anime
+$routes->get('/anime', 'Anime::index');
+$routes->get('/anime/top/(:alpha)', 'Anime::top/$1');
+$routes->get('/anime/top/(:alpha)/(:num)', 'Anime::top/$1/$2');
+$routes->get('/anime/season/(:alpha)/(:num)', 'Anime::season/$1/$2');
+$routes->get('/anime/season/(:alpha)/(:num)/(:num)', 'Anime::season/$1/$2/$3');
+$routes->get('/anime/(:num)/(:any)', 'Anime::detail/$1/$2');
+
+// Sistem manga
+$routes->get('/manga', 'Manga::index');
+$routes->get('/manga/top/(:alpha)', 'Manga::top/$1');
+$routes->get('/manga/top/(:alpha)/(:num)', 'Manga::top/$1/$2');
+$routes->get('/manga/(:num)/(:any)', 'Manga::detail/$1/$2');
+
+// Sistem admin
+$routes->get('/admin', 'Admin::index');
+$routes->put('/admin/save', 'Admin::save');
+$routes->put('/admin/token', 'Admin::token');
+$routes->get('/admin/token', 'Admin::token');
+$routes->delete('/admin/user/delete', 'Admin::delete_user');
+$routes->put('/admin/user/edit', 'Admin::edit_user');
+$routes->put('/admin/user/update', 'Admin::update_user');
+$routes->put('/admin/setting/save', 'Admin::save_setting');
+
+// Sistem login
+$routes->get('/login', 'Login::login');
+$routes->put('/login/cek', 'Login::logincek');
+$routes->get('/register', 'Login::register');
+$routes->put('/register/cek', 'Login::registercek');
+$routes->get('/logout', 'Login::logout');
+
+// Sistem search
+$routes->get('/search', 'Search::index');
+
+// Sistem ajax
+$routes->get('/ajax/home', 'Ajax::home');
+$routes->post('/ajax/search', 'Ajax::search');
+
+$routes->get('/ajax/index_anime', 'Ajax::index_anime');
+$routes->post('/ajax/detail_anime', 'Ajax::detail_anime');
+$routes->post('/ajax/top_anime', 'Ajax::top_anime');
+$routes->post('/ajax/season_anime', 'Ajax::season_anime');
+
+$routes->get('/ajax/index_manga', 'Ajax::index_manga');
+$routes->post('/ajax/detail_manga', 'Ajax::detail_manga');
+$routes->post('/ajax/top_manga', 'Ajax::top_manga');
 
 /*
  * --------------------------------------------------------------------
