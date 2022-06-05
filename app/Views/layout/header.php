@@ -110,17 +110,17 @@ if (empty($title)) {
                         </a>
                         <div class="collapse" id="season-anime" data-parent="#accordionSidenav">
                             <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
-                                <a class="nav-link" href="/anime/season/winter/2021">
-                                    Anime Winter 2021
+                                <a class="nav-link" href="/anime/season/winter/2022">
+                                    Anime Winter 2022
                                 </a>
-                                <a class="nav-link" href="/anime/season/spring/2021">
-                                    Anime Spring 2021
+                                <a class="nav-link" href="/anime/season/spring/2022">
+                                    Anime Spring 2022
                                 </a>
-                                <a class="nav-link" href="/anime/season/summer/2021">
-                                    Anime Summer 2021
+                                <a class="nav-link" href="/anime/season/summer/2022">
+                                    Anime Summer 2022
                                 </a>
-                                <a class="nav-link" href="/anime/season/fall/2020">
-                                    Anime Fall 2020
+                                <a class="nav-link" href="/anime/season/fall/2022">
+                                    Anime Fall 2022
                                 </a>
                             </nav>
                         </div>
