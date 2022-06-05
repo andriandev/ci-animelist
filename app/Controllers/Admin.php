@@ -95,16 +95,53 @@ class Admin extends BaseController
         // Jika $_GET['code'] tidak ada
         if (empty($code)) {
             // Security
-            if (!$this->request->getPost('get_token')) {
+            $getToken = $this->request->getPost('get_token');
+            if (!$getToken) {
                 throw new \CodeIgniter\Exceptions\PageNotFoundException();
-            }
+            } else if ($getToken == 'update_token') {
+                // Function untuk mengambil 'code' dari MAL
+                return $curlModel->getCode();
+            } else if ($getToken == 'refresh_token') {
+                // Function untuk mengambil 'acces_token' dengan refresh_token dari MAL
+                $token = $curlModel->getRefreshToken();
 
-            if ($this->request->getPost('get_token') != 'Token') {
-                throw new \CodeIgniter\Exceptions\PageNotFoundException();
-            }
+                // Menangkap data dari MAL
+                $access_token = $token['access_token'];
+                $refresh_token = $token['refresh_token'];
+                $expire_token = date('t', $token['expires_in']) . ' Days';
 
-            // Function untuk mengambil 'code' dari MAL
-            return $curlModel->getCode();
+                // Perintah save ke DB
+                $this->configModel->save([
+                    'name' => 'access_token',
+                    'value' => $access_token
+                ]);
+
+                $this->configModel->save([
+                    'name' => 'refresh_token',
+                    'value' => $refresh_token
+                ]);
+
+                $this->configModel->save([
+                    'name' => 'expired_token',
+                    'value' => $expire_token
+                ]);
+
+                // Session setFlashdata
+                $pesan = '<div class="alert alert-warning text-center" role="alert">
+                Data token berhasil di update menggunakan refresh token.
+                </div>';
+                session()->setFlashdata('pesan', $pesan);
+
+                return redirect()->to('/admin');
+            } else {
+                // Session setFlashdata
+                $pesan = '<div class="alert alert-danger text-center" role="alert">
+                Terjadi kesalahan.
+                </div>';
+                session()->setFlashdata('pesan', $pesan);
+
+                return redirect()->to('/admin');
+            }
         }
 
         // Jika $_GET['code'] ada

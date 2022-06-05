@@ -177,6 +177,37 @@ class Curl_Model extends Model
         return $result;
     }
 
+    public function getRefreshToken()
+    {
+        $client_id = $this->db->table('tb_config')->getWhere(['name' => 'client_id'])->getResultArray()['0']['value'];
+        $client_secret = $this->db->table('tb_config')->getWhere(['name' => 'client_secret'])->getResultArray()['0']['value'];
+        $code_challenge = $this->db->table('tb_config')->getWhere(['name' => 'code_challenge'])->getResultArray()['0']['value'];
+        $refresh_token = $this->db->table('tb_config')->getWhere(['name' => 'refresh_token'])->getResultArray()['0']['value'];
+
+        $ch = curl_init();
+        curl_setopt_array($ch, array(
+            CURLOPT_URL => "https://myanimelist.net/v1/oauth2/token",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => array(
+                'client_id' => $client_id,
+                'client_secret' => $client_secret,
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $refresh_token,
+                'code_verifier' => $code_challenge,
+            )
+        ));
+        $result = curl_exec($ch);
+        curl_close($ch);
+        $result = json_decode($result, true);
+        return $result;
+    }
+
     //--------------------------------------------------------------------
 
 }

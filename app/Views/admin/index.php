@@ -147,9 +147,14 @@
                         <form action="/admin/token" method="post">
                             <?= csrf_field(); ?>
                             <input type="hidden" name="_method" value="PUT">
-                            <div class="form-group">
-                                <label for="token">Update token :</label>
-                                <input type="text" name="get_token" class="form-control" id="token" value="Token" autocomplete="off">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="input-token">Options</label>
+                                </div>
+                                <select class="custom-select" id="input-token" name="get_token">
+                                    <option selected value="refresh_token">Refresh Token</option>
+                                    <option value="update_token">Update Token</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary btn-icon-split mt-1 btn-sm">
                                 <span class="icon">
