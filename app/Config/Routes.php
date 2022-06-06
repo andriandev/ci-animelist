@@ -64,11 +64,11 @@ $routes->put('/admin/user/update', 'Admin::update_user');
 $routes->put('/admin/setting/save', 'Admin::save_setting');
 
 // Sistem login
-$routes->get('/login', 'Login::login');
-$routes->post('/login/cek', 'Login::logincek');
-$routes->get('/register', 'Login::register');
-$routes->post('/register/cek', 'Login::registercek');
-$routes->get('/logout', 'Login::logout');
+$routes->get('/login', 'Auth::login');
+$routes->post('/login/cek', 'Auth::logincek');
+$routes->get('/register', 'Auth::register');
+$routes->post('/register/cek', 'Auth::registercek');
+$routes->get('/logout', 'Auth::logout');
 
 // Sistem search
 $routes->get('/search', 'Search::index');

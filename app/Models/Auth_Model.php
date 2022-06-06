@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Login_Model extends Model
+class Auth_Model extends Model
 {
     // Variabel untuk DB yang akan digunakan
     protected $table = 'tb_user';

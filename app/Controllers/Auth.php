@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-class Login extends BaseController
+class Auth extends BaseController
 {
     // Variabel model
-    protected $logModel;
+    protected $authModel;
 
     public function __construct()
     {
         // Inisialisasi model
-        $this->logModel = new \App\Models\Login_Model();
+        $this->authModel = new \App\Models\Auth_Model();
     }
 
     public function login()
@@ -55,7 +55,7 @@ class Login extends BaseController
         }
 
         // Mengambil data dari DB berdasarkan username
-        $user = $this->logModel->getUser($username);
+        $user = $this->authModel->getUser($username);
 
         // Cek data yang dikirim ada di DB atau tidak
         if ($user != null) {
@@ -188,7 +188,7 @@ class Login extends BaseController
         }
 
         // Mengambil data dari DB berdasarkan username
-        $user = $this->logModel->getUser($username);
+        $user = $this->authModel->getUser($username);
 
         // Cek apakahh username sudah ada atau belum
         if ($user != null) {
@@ -215,7 +215,7 @@ class Login extends BaseController
         //dd($username, $password, $name, $role, $is_active);
 
         // Perintah save ke DB
-        $this->logModel->save([
+        $this->authModel->save([
             'username' => $username,
             'password' => $password,
             'name' => $name,
