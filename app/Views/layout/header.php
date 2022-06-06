@@ -59,10 +59,21 @@ if (empty($title)) {
                             Homepage
                         </a>
                         <?php if (session()->get('role') == 'admin') : ?>
-                            <a class="nav-link" href="/admin">
-                                <div class="nav-link-icon"><i class="fas fa-fw fa-user-circle"></i></div>
+                            <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#admin" aria-expanded="false" aria-controls="admin">
+                                <div class="nav-link-icon"><i class="fas fa-user-circle"></i></div>
                                 Admin
+                                <div class="sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="admin" data-parent="#accordionSidenav">
+                                <nav class="sidenav-menu-nested nav accordion" id="accordionSidenavPagesMenu">
+                                    <a class="nav-link" href="/admin">
+                                        Admin Area
+                                    </a>
+                                    <a class="nav-link" href="/admin/setting">
+                                        Admin Setting
+                                    </a>
+                                </nav>
+                            </div>
                         <?php endif; ?>
                         <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#top-anime" aria-expanded="false" aria-controls="top-anime">
                             <div class="nav-link-icon"><i class="fas fa-fw fa-fire"></i></div>

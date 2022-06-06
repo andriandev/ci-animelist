@@ -61,7 +61,9 @@ $routes->get('/admin/token', 'Admin::token');
 $routes->delete('/admin/user/delete', 'Admin::delete_user');
 $routes->put('/admin/user/edit', 'Admin::edit_user');
 $routes->put('/admin/user/update', 'Admin::update_user');
-$routes->put('/admin/setting/save', 'Admin::save_setting');
+$routes->get('/admin/setting', 'Admin::setting');
+$routes->post('/admin/setting/save', 'Admin::save_setting');
+$routes->post('/admin/setting/cache', 'Admin::cache');
 
 // Sistem login
 $routes->get('/login', 'Auth::login');

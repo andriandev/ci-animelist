@@ -29,8 +29,7 @@ class Admin extends BaseController
             'refresh_token' => $this->configModel->getConfig('refresh_token')['value'],
             'created_token' => $this->configModel->getConfig('expired_token')['updated_at'],
             'expired_token' => $this->configModel->getConfig('expired_token')['value'],
-            'user' => $this->adminModel->getUser(),
-            'aktivasi' => $this->setModel->getSet('aktivasi_user')['value']
+            'user' => $this->adminModel->getUser()
         ];
 
         return view('admin/index', $data);
@@ -251,6 +250,17 @@ class Admin extends BaseController
         return redirect()->to('/admin');
     }
 
+    public function setting()
+    {
+        $data = [
+            'aktivasi' => $this->setModel->getSet('aktivasi_user')['value'],
+            'title' => 'Admin Setting',
+            'cache' => \Config\Services::cache()
+        ];
+
+        return view('admin/setting/index', $data);
+    }
+
     public function save_setting()
     {
         // Menagkap inputan
@@ -269,6 +279,73 @@ class Admin extends BaseController
         session()->setFlashdata('pesan', $pesan);
 
         return redirect()->to('/admin');
+    }
+
+    public function cache()
+    {
+        $cache = \Config\Services::cache();
+        $key = $this->request->getPost('key');
+
+        if ($key == 'allDataCache') {
+            $result = $cache->clean();
+
+            if ($result) {
+                // Session setFlashdata
+                $pesan = '<div class="alert alert-success text-center" role="alert">
+                Semua cache berhasil dihapus.
+                </div>';
+                session()->setFlashdata('pesan', $pesan);
+
+                return redirect()->to('/admin/setting');
+            }
+        } else if ($key == 'oneDataCache') {
+            $keyCache = $this->request->getPost('keyCache');
+
+            if (!empty($keyCache)) {
+                $result = $cache->delete($keyCache);
+
+                if ($result) {
+                    // Session setFlashdata
+                    $pesan = '<div class="alert alert-success text-center" role="alert">
+                    Cache ' . $keyCache . ' berhasil dihapus.
+                    </div>';
+                    session()->setFlashdata('pesan', $pesan);
+
+                    return redirect()->to('/admin/setting');
+                }
+            }
+        } else if ($key == 'prefixDataCache') {
+            $keyCache = $this->request->getPost('keyCache');
+            $setup = $this->request->getPost('setup');
+
+            if (!empty($keyCache)) {
+                if ($setup == 'prefix') {
+                    $keyCache = $keyCache . '*';
+                } else if ($setup == 'suffix') {
+                    $keyCache = '*' . $keyCache;
+                }
+
+                $result = $cache->deleteMatching($keyCache);
+
+                if ($result) {
+                    // Session setFlashdata
+                    $pesan = '<div class="alert alert-success text-center" role="alert">
+                    Cache dengan ' . $setup . ' ' . $keyCache . ' dengan jumlah ' . $result . ' berhasil dihapus.
+                    </div>';
+                    session()->setFlashdata('pesan', $pesan);
+
+                    return redirect()->to('/admin/setting');
+                }
+            }
+        }
+
+        // Session setFlashdata
+        $pesan = '<div class="alert alert-danger text-center" role="alert">
+        Terjadi Kesalahan.
+        </div>';
+        session()->setFlashdata('pesan', $pesan);
+
+        return redirect()->to('/admin/setting');
     }
 
     //--------------------------------------------------------------------

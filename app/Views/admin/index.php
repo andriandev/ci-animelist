@@ -16,8 +16,7 @@
                     <div class="col">
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-link active" id="nav-setting-tab" data-toggle="tab" href="#nav-setting" role="tab" aria-controls="nav-setting" aria-selected="false">Setting</a>
-                                <a class="nav-link" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="false">User</a>
+                                <a class="nav-link active" id="nav-user-tab" data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="false">User</a>
                                 <a class="nav-link" id="nav-config-tab" data-toggle="tab" href="#nav-config" role="tab" aria-controls="nav-config" aria-selected="true">Config</a>
                                 <a class="nav-link" id="nav-token-tab" data-toggle="tab" href="#nav-token" role="tab" aria-controls="nav-token" aria-selected="false">Token</a>
                             </div>
@@ -26,27 +25,8 @@
                 </div>
 
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-setting" role="tabpanel" aria-labelledby="nav-setting-tab">
-                        <form action="/admin/setting/save" method="post">
-                            <?= csrf_field(); ?>
-                            <input type="hidden" name="_method" value="PUT">
-                            <div class="form-group">
-                                <label for="aktivasi">Aktivasi User :</label>
-                                <select class="custom-select" id="aktivasi" name="aktivasi">
-                                    <option selected><?= $aktivasi; ?></option>
-                                    <option value="<?= ($aktivasi == 0 ? 1 : 0); ?>"><?= ($aktivasi == 0 ? 1 : 0); ?></option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-icon-split mt-1 btn-sm">
-                                <span class="icon">
-                                    <i class="fas fa-save"></i>
-                                </span>
-                                <span class="text ml-2"> Save</span>
-                            </button>
-                        </form>
-                    </div>
 
-                    <div class="tab-pane fade show" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
+                    <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
                         <div class="table-responsive">
                             <table class="table table-stripped table-bordered text-nowrap" id="dataTable" cellspacing="0">
                                 <thead class="bg-primary text-white text-center">
